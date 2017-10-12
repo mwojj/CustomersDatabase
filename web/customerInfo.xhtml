@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Informacje o kliencie</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Edycja danych"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Id:" for="id" />
+                    <p:outputLabel id="id" value="#{customerMBean.details.id}" title="Id"/>
+                    <p:outputLabel value="Data dodania:" for="joinDate" />
+                    <p:outputLabel id="joinDate" value="#{customerMBean.details.joinDate}" title="JoinDate">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:outputLabel>
+                    <p:outputLabel value="Imię:" for="name" />
+                    <p:inputText id="name" value="#{customerMBean.details.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                    <p:outputLabel value="Nazwisko:" for="surname" />
+                    <p:inputText id="surname" value="#{customerMBean.details.surname}" title="Surname" required="true" requiredMessage="The Surname field is required."/>
+                    <p:outputLabel value="Nr telefonu:" for="phone" />
+                    <p:inputText id="phone" value="#{customerMBean.details.phone}" title="Phone" required="true" requiredMessage="The Phone field is required."/>
+                    <p:outputLabel value="Komentarz:" for="commentary" />
+                    <p:inputText id="commentary" value="#{customerMBean.details.commentary}" title="Commentary" />
+                </p:panelGrid>
+                
+                <a href="/CustomersProject/">
+                   <input type="button" value="Powrót" /></a>
+                <h:commandButton id="update" value="Zaktualizuj" action="#{customerMBean.update()}"/>    
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

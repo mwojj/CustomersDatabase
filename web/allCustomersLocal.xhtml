@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Baza danych klientów</title>
+    </h:head>
+    <h:body>
+
+        <f:view>
+
+            <h:form>
+
+                <p:dataTable value="#{customerMBean.allSessionCustomers}" var="item1"   
+                             emptyMessage="Nie znaleziono klientów według podanych kryteriów"   
+                             widgetVar="customerTable"  
+                             paginator="true"  
+                             rows="10">  
+
+                    <f:facet name="header">    
+                        <p:outputPanel>    
+                            <h:outputText value="Baza danych klientów (sesja tymczasowa)" />  
+                        </p:outputPanel>    
+                    </f:facet>    
+
+                    <p:column headerText="ID"  
+                              sortBy="#{item1.id}"  
+                              filterBy="#{item1.id}"  
+                              filterMatchMode="contains">  
+                        <h:outputText value="#{item1.id}" />    
+                    </p:column>
+                    <p:column headerText="Data dołączenia"
+                              sortBy="#{item1.joinDate}"
+                              filterBy="#{item1.joinDate}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{item1.joinDate}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Imię"
+                              sortBy="#{item1.name}"
+                              filterBy="#{item1.name}"
+                              filterFunction="#{customerMBean.filterByFunction}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{item1.name}"/>
+                    </p:column>
+                    <p:column headerText="Nazwisko"
+                              sortBy="#{item1.surname}"
+                              filterBy="#{item1.surname}"
+                              filterFunction="#{customerMBean.filterByFunction}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{item1.surname}"/>
+                    </p:column>
+                    <p:column headerText="Nr telefonu"
+                              sortBy="#{item1.phone}"
+                              filterBy="#{item1.phone}"
+                              filterFunction="#{customerMBean.filterByFunction}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{item1.phone}"/>
+                    </p:column>
+                    <p:column headerText="Komentarz"
+                              sortBy="#{item1.commentary}"
+                              filterBy="#{item1.commentary}"
+                              filterFunction="#{customerMBean.filterByFunction}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{item1.commentary}"/>
+                    </p:column>
+                    <p:column headerText="Dostępne akcje">
+                        <f:facet name="header">Dostępne akcje</f:facet>
+                        <h:commandButton action="#{customerMBean.showDetails(item1)}" value="Edycja"/>
+                        <h:commandButton value="Usuń" action="#{customerMBean.deleteInSession(item1)}" >
+                            <f:param name="disableValidation" value="true" />
+                        </h:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <h:commandButton id="create" value="Utwórz klienta" action="#{customerMBean.createNewCustomerLocal()}"/>
+                <h:commandButton id="goSQL" value="Sesja z bazą danych" action="#{customerMBean.goSQLSession()}"/>
+
+            </h:form>
+        </f:view>
+
+
+    </h:body>
+</html>
+
